@@ -1,0 +1,23 @@
+{
+  "name": "114-3",
+  "version": "1.0.0",
+  "description": "CREATING SOME CHANGES ON MY BRANCH",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSCI-3308-CU-Boulder/114-3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CSCI-3308-CU-Boulder/114-3/issues"
+  },
+  "homepage": "https://github.com/CSCI-3308-CU-Boulder/114-3#readme",
+  "devDependencies": {
+    "grunt": "^1.3.0",
+    "grunt-open": "^0.2.4"
+  }
+}

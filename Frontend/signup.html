@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Sign Up</title>
+    <link rel="icon" href="https://www.vivosmartphone.vn/themes/vivo/favicon.ico">
+    <meta name="title" content="" />
+    <meta name="description" content="" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="dest/style.min.css">
+    <link rel="stylesheet" href="dest/fonts.css">
+    <link rel="stylesheet" href="dest/stylelibs.min.css">
+   
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e42952cfb6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="banner banner-page">
+        <div class="bg-blur"></div>
+        <div class="narbar">
+            <div class="container flex j-between">
+                <div class="left">
+                    <span>C</span>OVID<span>N</span>OW
+                    <div class="logo-bottom">FOCUSED ON YOU</div>
+                </div>
+                <div class="center">
+                    <ul class="flex j-between">
+                        <li><a href="index.html">HOME</a></li>
+                        <!-- <li><a href="map.html">STATISTICS</a></li>
+                        <li><a href="chat.html">FORUM</a></li> -->
+                        <li><a href="state_info.html">STATE INFO</a></li>
+                        <li><a href="signup.html">SIGN UP</a></li>
+                        <li><a href="login.html">SIGN IN</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-signup">
+        <div class="signup">
+            <h1>WELCOME TO COVID NOW</h1>
+            <div class="signup-form">
+                <div class="bg-blur"></div>
+                <form action="http://localhost:3000/register" method="POST" onSubmit = "return checkPassword(this)">
+                    <h2 class="title">SIGN UP</h2>
+                <div class="input-group1 first">
+                    <label for="">First Name</label>
+                    <input autocomplete="off" type="text" id="firstName" name="firstName" placeholder="First Name"/>
+                </div>
+                <div class="input-group1">
+                    <label for="">Last Name</label>
+                    <input autocomplete="off" type="text" id="lastName" name="lastName" placeholder="Last Name"/>
+                </div>
+                <div class="input-group1">
+                    <label for="">State</label>
+                    <input autocomplete="off" type="text" id="state" name="state" placeholder="Ex: 'CO'"/>
+                </div>
+                <div class="input-group1">
+                    <label for="">Email</label>
+                    <input autocomplete="off" type="email" id="email" name="email" placeholder="Email"/>
+                </div>
+                <div class="input-group1">
+                    <label for="">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password"/>
+                </div>
+                <div class="input-group1">
+                    <input type="password" id="confPass" name="confPass" placeholder="Confirm Password"/>
+                </div>
+                <form action="signup.html" method="POST">
+                    <button class="btn-signup">Submit</button>
+                </form>
+                    
+                </form>
+                
+            </div>
+
+        </div>
+        
+    </div>
+	
+	<script type="text/javascript" src="dest/jsmain.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="js/chat_page.js"></script>
+    <!-- <script src="../Backend/schedule.js"></script>
+    <script src="../Backend/db.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	  <!-- <script src="../resources/js/my_scripts.js"></script> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>CovidNow</title>
+    <link rel="icon" href="https://www.vivosmartphone.vn/themes/vivo/favicon.ico">
+    <meta name="title" content="" />
+    <meta name="description" content="" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="dest/style.min.css">
+    <link rel="stylesheet" href="dest/fonts.css">
+    <link rel="stylesheet" href="dest/stylelibs.min.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/e42952cfb6.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- overwrite background image from homepage -->
+    <style>
+        /* #page_body{background:dimgrey;} */
+        #page_body{overflow-y: scroll;}
+        .bg-blur{height:100%;}
+        #state_stats{background:ghostwhite; opacity:0.9; color: royalblue; text-align: center; margin-right: 20px; margin-left: 20px; padding:3%; position:relative;}
+        #state_stats table{width: 100%;}
+        #state_stats tr{height:50px;}
+        #state_stats td{text-align: center;}
+        /* #state_stats::after{content: "\a";} */
+        /* #stats{margin-bottom: 30px;} */
+        #stats, #more_stats{text-align:center; width:100%;}
+        /* #stats::after{content: "\a";} */
+        /* #comments::before{content: "\a"; background:dimgrey;} */
+        #comments{padding:2%; margin-right: 4px; margin-left: 4px;} /* took out position:relative; */
+        #past_comments{background:ghostwhite; opacity:0.9; color: royalblue; overflow-y: auto;}
+        /* #new_post{opacity:0.9;} */
+        #comment_box{background:ghostwhite; opacity:0.9; color: royalblue; padding:3%;}
+        #new_comment{opacity:0.96}
+        #chat_footer{all: initial; position: relative; bottom: 5px; width: 100%; margin-bottom: 12px;}
+        /* #socials_list{padding-bottom: 10px;} */
+        #site_links{position:relative; bottom: 5px;}
+        
+    </style>
+
+    <script>
+        // need to adjust this to be for comments
+        // how will I get the state code to know what comments to load??
+        function loadComments()
+        {
+            console.log(document.getElementById("States").value);
+            var url = 'http://localhost:5000/covid_data/:state/comments' + document.getElementById("States").value;
+            $.ajax({url:url, dataType:"json"}).then(function(data) 
+            {
+                document.getElementById("past_comments") = data.id;
+                // need to correct this varible??
+                document.getElementById("past_comments") = data.comment;
+            })
+        }
+
+        function loadStates(){
+            // I do not have the element to get the state... should submit redirect here??
+          console.log(document.getElementById("States").value);
+          var url = 'http://localhost:5000/covid_data/' + document.getElementById("States").value;
+          $.ajax({url:url, dataType:"json"}).then(function(data) {
+            console.log(data);
+                document.getElementById("state_id").innerHTML = data.state;
+          		document.getElementById("deaths").innerHTML += data.deaths;
+          		document.getElementById("deathincrease").innerHTML += data.deathincrease;
+          		document.getElementById("hospital").innerHTML += data.hospitalized;
+          		document.getElementById("recovered").innerHTML += data.recovered;
+                document.getElementById("ICU").innerHTML += data.inicucurrently;
+                document.getElementById("positive").innerHTML += data.positive;
+                // total cases???
+                // possible deaths??
+                // possible cases??
+                // time of last update?
+          	})
+        }
+    </script>
+</head>
+
+<body>
+    <div id="page_body" class="banner">
+    <div class="bg-blur">
+        <div class="narbar">
+            <div class="container flex j-between">
+                <div class="left">
+                    <span>C</span>OVID<span>N</span>OW
+                    <div class="logo-bottom">FOCUSED ON YOU</div>
+                </div>
+                <div class="center">
+                    <ul class="flex j-between">
+                        <a href= "index.html"><li>HOME</li></a>
+                        <a href="map.html"><li>STATISTICS</li></a>
+                        <a href="chat.html"><li>FORUM</li></a>
+                        <a href="state_info.html"><li>STATE INFO</li></a>
+                        <a href="signup.html"><li>SIGN UP</li></a>
+                        <a href="login.html"><li>SIGN IN</li></a>
+                        <!-- <li><div class="right"><i class="fas fa-search"></i></div></li> -->
+                    </ul>
+                </div>
+                <div class="right"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+
+        <br>
+        <!-- how will I get the state name from the map page?? -->
+        <div id="state_stats" class="jumbotron">
+            <h4 id="state_id">State Name</h4>
+            <!-- Load in stats by state - with a table? -->
+            <table id="stats" class="center">
+                <tr>
+                    <td id="positive">Current Cases: <b><font size="5">3</font></b></td>
+                    <td id="total_positive">Total Cases: <b><font size="5">5</font></b></td>
+                    <td id="deaths">Deaths: <b><font size="5">1</font></b></td>
+                    <td><button id="hidetext" type="button" class="btn btn-warning" onclick="showMore()" href="#more_stats">Show more</button></td>
+                </tr>
+            </table>
+            <!-- potentially display more stats if user chooses to-->
+            <!--display second table of info if show more is clicked -->
+            <!-- <a class="btn btn-warning dropdown-toggle" id="hidetext" href="#more_stats" onclick="showMore()">Show more</a>  -->
+            <div id="more_stats" class="center" style="display: none;">
+                <!--put table of more stats here-->
+                <table id="more_stats_table">
+                    <tr>
+                        <th colspan="5">Whateva I'm finna put here</th>
+                    </tr>
+                    <tr>
+                        <td id="recovered" colspan="5">Recovered: </td>
+                    </tr>
+                    <tr>
+                        <td id="hospital" colspan="3">Current Hospitalizations: </td>
+                        <!-- <td id="hospital_total">Total Hospitalizations: </td> -->
+                        <td id="ICU" colspan="2">In ICU: </td>
+                        <!-- <td id="recovered">Recovered: </td> -->
+                        <!-- <td id="deathincrease">Other stats? </td> -->
+                    </tr>
+                    <tr>
+                        <td id="deathincrease" colspan="2">Other stats? </td>
+                        <td id="hospital_total" colspan="3">Total Hospitalizations: </td>
+                    </tr>
+                    <tr>
+                        <td id="cases_likely" colspan="2">May be as many as ?? cases</td>
+                        <td id="deaths_likely" colspan="2">May be as many as ?? deaths</td>
+                    </tr>
+                    <tr>
+                        <td id="last_update" colspan="5">Data up to date as of ????</td>
+                    </tr>
+                </table>
+            </div>
+        </div> <!-- end stats div-->
+
+        <div id="comments">
+            <div id ="past_comments" class="jumbotron">
+                <p>Load old comments in from database</p>
+                <div id="comment_list" class="list-group">
+
+                </div>
+
+
+
+                <!-- when a new comment is entered add it to this div after the latest one so they can scroll through comments -->
+            </div>
+
+            <!-- <br><br> -->
+
+            <div id="new_post">
+                <form method="POST">
+                    <label for="new_comment">Post a comment:</label>
+                    <div class="form-group jumbotron" id="comment_box">
+                        <!-- would be ideal to display username in city -->
+                        <p>User: </p>
+                        <textarea class="form-control" id="new_comment" rows="4"></textarea>
+                        <!-- want this to be displayed under other comments and also sent to database -->
+                        <!-- I cannot click this rn! -->
+                        <button type="button" class="btn btn-primary" id="submit_comment" onclick="displayNewComment()">Post</button>
+                        <!-- <a type="submit" class="btn btn-primary" id="submit_comment" onclick="displayNewComment()">Post</a> -->
+                    </div>
+                </form>
+            </div>
+        </div> <!-- end comments div -->
+
+        <br>
+        <footer id="chat_footer">
+            <!--this is not displaying correctly - overlapping with textbox-->
+            <div id="socials_list">
+                <ul id="site_links" class="social flex j-between">
+                    <li><a class="icon fb" href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="icon tw" href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="icon pin" href="#"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a class="icon db" href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a class="icon gp" href="#"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+            </div>
+            <!-- <br><br> -->
+            <div class="copyright">© 2020 CovidNow. All rights reserved | Design by CU Boulder - CSCI3308 - Team 3</div>
+        </footer>
+    </div>
+    </div>
+</body>
+</html>
+
+<!--
+// CHAT PAGE
+#page_body
+{
+    background: #ccc;
+}
+#chat_footer
+{
+    all: initial;
+    * {
+      all: unset;
+    }
+}
+
+/**
+ * to do:
+ * 
+ * display covid stats for state at top of page
+ * maybe have a "show more info" option to display more specific stats
+ * show previous comments, including:
+ *      name
+ *      date/time posted
+ *      comment
+ *      town/city??
+ * empty textbox/"post comment" option to add new comment
+ */
+
+function showMore()
+{
+    var more_stats = document.getElementById("more_stats");
+    var button = document.getElementById("hidetext");
+    if (more_stats.style.display == "none") 
+    {
+        more_stats.style.display = "block";
+        button.innerHTML = "Show less";
+    } 
+    else 
+    {
+        more_stats.style.display = "none";
+        button.innerHTML = "Show more";
+    }
+}
+
+function displayNewComment()
+{
+    console.log('in displayNewComment');
+    var commentText = document.getElementById("new_comment").innerHTML;
+
+    document.getElementById("new_comment").value = ''; // clear textbox input
+
+    // this is not working right
+    //if ($.trim($(commentText).val()) == "")
+    //if(commentText.replace(/^s+|s+$/g,) == "")
+    ///if(commentText.match(/^ *$/) !== null)
+    if(commentText.trim() === "")
+    {
+        alert("Please enter text to post a comment.");
+    }
+    else
+    {
+        // make card of comment??
+        var newPost = `<div class="list-group-item">
+                        <h6>username??</h6>
+                        <p>${commentText}</p>
+                    </div>`;
+        document.getElementById("comment_list").innerHTML += newPost;
+    }
+
+    // document.getElementById("new_comment").value = ''; // clear textbox input
+} -->

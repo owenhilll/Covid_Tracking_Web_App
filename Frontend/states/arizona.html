@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+    <title>Arizona</title>
+    
+    <style>
+    	div{
+    		background-color:blue; 
+    	}
+    	
+    	</style>
+    
+    <!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384   -GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="./resources/css/layout.css">
+  
+	  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	  <script src="../Backend/schedule.js"></script>
+    <script src="../Backend/db.js"></script>
+	<script>
+	
+		$(document).ready(function(){
+			var url = 'http://localhost:5000/covid_data/AZ';
+		    	$.ajax({url:url, dataType:"json"}).then(function(data){
+		    		console.log("test");
+		    		console.log(data);
+				document.getElementById("texas").innerHTML += '<div style="width: 40%;">' + '<div class="card">' + '<h5 class="card-title">State: ' + 					data.state + '</h5>' + '<p class="card-text">Deaths: ' + data.deaths + '<br>' + 'Hospitilizations: ' + data.hospitalized + '<br>' + 					'death increase: '+ data.deathincrease + '<br>' + 'Negative cases: ' + data.negative + '<br>' + 'Recovered: ' + data.recovered + 					'<br>' + 'Postive total:' + data.positive + '</div>' + '</div>';
+			})
+		})
+
+
+	</script>
+  
+  </head>
+  <body>
+		<div id="texas" class = "container" align="center" style="height: 100%;">
+
+			
+		</div>
+		<div id="comments" class="container">
+            <div id ="past_comments" class="jumbotron">
+                Load old comments in from database
+
+
+
+                <!-- when a new comment is entered add it to this div after the latest one so they can scroll through comments -->
+            </div>
+        <!--idk if this is what I want-->
+            <!-- <ol id="posts-list" class="hfeed<?php echo($has_comments?' has-comments':’); ?>">
+                <li class="no-comments">Be the first to add a comment.</li>
+                <?php
+                  foreach ($comments as $comment) { ?>
+                    <li><article id="comment_<?php echo($comment['id']); ?>" class="hentry">  
+                      <footer class="post-info">
+                        <abbr class="published" title="<?php echo($comment['date']); ?>">
+                          <?php echo( date('d F Y', strtotime($comment['date']) ) ); ?>
+                        </abbr>
+              
+                        <address class="vcard author">
+                           <a class="url fn" href="#"><?php echo($ here is where you will get username from DB >); ?></a>
+                        </address>
+                      </footer>
+              
+                      <div class="entry-content">
+                        <p><?php echo($comment['comment']); ?></p>
+                      </div>
+                    </article></li>
+                    <?php
+                  } ?>
+              </ol> -->
+        <!--idk if this is want I want-->
+            <br><br>
+            <div id="new_post">
+                <!-- input textbox goes here ADJUST THIS-->
+                <form>
+                <div class="form-group">
+                    <label for="new_comment">Post a comment:</label>
+                    <textarea class="form-control" id="new_comment" rows="4"></textarea>
+                </div>
+                </form>
+
+            </div>
+        </div>
+        <footer id="chat_footer">
+            <!--this is not displaying correctly - overlapping with textbox-->
+            <!-- <ul class="social flex j-between" >
+                <li><a class="icon fb" href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a class="icon tw" href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a class="icon pin" href="#"><i class="fa fa-pinterest"></i></a></li>
+                <li><a class="icon db" href="#"><i class="fa fa-dribbble"></i></a></li>
+                <li><a class="icon gp" href="#"><i class="fa fa-google-plus"></i></a></li>
+            </ul> -->
+            <div class="copyright">© 2020 CovidNow. All rights reserved | Design by CU Boulder - CSCI3308 - Team 3</div>
+        </footer>
+  </body>
+</html>
